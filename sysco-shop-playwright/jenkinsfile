@@ -1,0 +1,48 @@
+pipeline {
+
+    agent any
+
+    environment {
+        CI = 'true'
+        BASE_URL = 'https://shop.sysco.com'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                dir('sysco-shop-playwright') {
+                    sh 'npm ci'
+                    sh 'npx playwright install --with-deps chromium'
+                }
+            }
+        }
+
+        stage('Run Playwright Tests') {
+            steps {
+                dir('sysco-shop-playwright') {
+                    sh 'npm test'
+                }
+            }
+        }
+    }
+
+    post {
+
+        always {
+
+            junit 'sysco-shop-playwright/test-results/results.xml'
+
+            archiveArtifacts(
+                artifacts: 'sysco-shop-playwright/playwright-report/**',
+                allowEmptyArchive: true
+            )
+        }
+    }
+}

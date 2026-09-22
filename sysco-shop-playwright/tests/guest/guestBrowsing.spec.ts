@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { CataloguePage } from '../../pages/CataloguePage';
 import { HomePage } from '../../pages/HomePage';
 
-test.describe('Sysco Shop - Guest Browsing', () => {
+test.describe('Sysco Shop - Guest Browsing @smoke @regression', () => {
 
 
     let cataloguePage: CataloguePage;
