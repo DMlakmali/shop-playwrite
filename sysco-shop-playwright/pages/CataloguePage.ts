@@ -20,12 +20,11 @@ export class CataloguePage {
     }
 
  async areProductsDisplayed(): Promise<boolean> {
-        return await this.page.locator('[class="row product-image"]').isVisible();
+        return (await this.page.locator('.row.product-image').first().isVisible());
     }
 
     async waitForLoaderToDisappear(): Promise<void> {
        await expect(this.page.locator('[class="loader loader-md"]')).toBeHidden();
-      // await this.page.waitForTimeout(5000);
     }
 
 }

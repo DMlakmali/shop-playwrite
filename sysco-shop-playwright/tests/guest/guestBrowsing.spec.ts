@@ -14,7 +14,7 @@ test.describe('Sysco Shop - Guest Browsing', () => {
         cataloguePage = new CataloguePage(page);
         homePage = new HomePage(page);
         await homePage.clickOnContinueAsGuest();
-        await homePage.enterZipCode('02108');
+        await homePage.enterZipCode('02120');
         await homePage.clickOnStartShoppingButton();
         await expect(homePage.page).toHaveURL(/discover/i);
     });
