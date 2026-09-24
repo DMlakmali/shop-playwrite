@@ -16,14 +16,29 @@ steps:
 - script: |
     cd sysco-shop-playwright
     npm ci
-  displayName: 'Install npm dependencies'
+  displayName: 'Install dependencies'
 
 - script: |
     cd sysco-shop-playwright
     npx playwright install --with-deps chromium
-  displayName: 'Install Playwright Chromium'
+  displayName: 'Install Playwright'
 
 - script: |
     cd sysco-shop-playwright
     npm test
   displayName: 'Run Playwright tests'
+
+- task: PublishTestResults@2
+  condition: always()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'sysco-shop-playwright/test-results/results.xml'
+    testRunTitle: 'Sysco Shop Playwright Tests'
+  displayName: 'Publish test results'
+
+- task: PublishPipelineArtifact@1
+  condition: always()
+  inputs:
+    targetPath: 'sysco-shop-playwright/playwright-report'
+    artifact: 'playwright-report'
+  displayName: 'Publish Playwright HTML report'
