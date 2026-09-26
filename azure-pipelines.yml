@@ -1,5 +1,16 @@
 trigger: none
 
+
+schedules:
+
+- cron: '30 18 * * *'
+  displayName: 'Nightly Regression'
+  branches:
+    include:
+    - main
+  always: true
+
+
 pool:
   vmImage: 'ubuntu-latest'
 
