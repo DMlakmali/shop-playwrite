@@ -19,7 +19,7 @@ export default defineConfig({
     use: {
         baseURL: process.env.BASE_URL || 'https://shop.sysco.com',
 
-        headless: process.env.CI ? true : false,
+        headless:true,
 
         trace: 'on-first-retry',
 
